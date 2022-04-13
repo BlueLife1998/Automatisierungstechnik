@@ -1,0 +1,60 @@
+\documentclass[12pt,a4paper,openany]{scrbook}
+
+\include{Allgemein/packages}
+\include{Allgemein/commands}
+
+
+
+%------------------------------------Links-----------------------------------------------------------------------%
+\newcommand{\linkPi}{https://www.reichelt.de/raspberry-pi-3-b-4x-1-4-ghz-1-gb-ram-wlan-bt-raspberry-pi-3b--p217696.html}
+
+\newcommand{\linkPiNT}{https://www.reichelt.de/raspberry-pi-netzteil-5-v-2-5-a-micro-usb-schwarz-nt-musb-25-sw-p167078.html}
+
+\newcommand{\linkMstick}{https://shop.m5stack.com/products/stick-c}
+
+\newcommand{\linkBuzzer}{https://www.reichelt.de/sg/de/entwicklerboards-aktives-piezo-buzzer-modul-debo-piezo-p239111.html}
+
+
+\begin{document}
+	
+	\include{Kapitel/titlepage} 
+	\newpage
+\chapter{Materialliste}
+Anmerkung: Die Versandkosten betragen insgesamt 5,95€ und die Versanddauer für alle Artikel 1-2 Werktage. Es fällt kein Mindermengenzuschlag an.\\ 
+Es gibt eine Vergünstigung für Hochschulen, dazu oben neben der Sprache den Reiter auf Schule, Hochschule, Universität stellen.\\ 
+Alle Links zuletzt abgerufen am 10.04.22
+
+\vspace{1cm}
+\centering
+
+
+\begin{table}[h]
+	\centering
+	
+	\resizebox{500pt}{!}{
+	\begin{tabular}{||p{1,2cm}|p{2,5cm}|p{3cm}|l|p{2,5cm}|r|}
+		\hline
+		Anzahl & Bezeichnung               & Artikel-Nr.       	& Preis   & Bemerkungen 					& Bestellink 						  \\ 
+		\hline
+		\hline
+		1      & Raspberry Pi 3B+          & RASPBERRYPI 3 B+ 	& 46,20 € &                           		&\href{\linkPi}{reichelt.de}    	                             \\
+		\hline
+		1      & Raspberry Pi - Netzteil   & NT MUSB 25 SW      & 8,55 €  &         	               		&\href{\linkPiNT}{reichelt.de}  	                             \\
+		\hline
+		1      & M5StickC                  &                   	&         &             					&\href{\linkMstick}{m5stack.com} 	                             \\
+		\hline
+		1      & Ethernet Kabel            & SLIM UL6 1,5 GR 	&         &             					&           		 				                           \\
+		\hline
+		1      & Piezo Buzzer              & DEBO PIEZO      	& 2,35 €  &             					&\href{\linkBuzzer }{reichelt.de}                                \\
+		\hline
+		1      & Filament                  &                   	&         & selbst      					&  \\ 
+		\hline
+		          						                  
+	\end{tabular}
+}
+
+\caption{Materialliste für das Projekt Überwachungssystem basierend auf der IMU des M5-Sticks}	
+\end{table}
+
+
+\end{document}
