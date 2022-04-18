@@ -1,0 +1,116 @@
+\documentclass[a4paper,12pt]{article}
+
+%benötigte Pakete
+\usepackage[ngerman]{babel}		%Deutscher Standard
+\usepackage[T1]{fontenc}			%Ausgabefont
+\usepackage[utf8]{inputenc}		%Umlaute
+\usepackage{amsmath}				%Formeln einbinden
+\usepackage{mathptmx}			%Schriftart Times
+\usepackage{graphicx}			%Paket für Grafiken
+\usepackage{hyperref}			%Verlinkungen
+
+
+%Kopf- und Fußzeile
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{}
+%\lhead{\thesubsection}
+%\chead{Überwachungssystem M5 Stick} %Mitte Kopfzeile
+\rhead{\leftmark}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+%\renewcommand{\headrulewidth}{10pt}	%Dicke der Linie
+
+%Literaturangaben
+\bibliographystyle{unsrt}
+
+%Sonstiges
+\setlength\headheight{20pt}
+\title{Dokumententest}
+%\date{\today} %aktuelles Datum einfügen
+
+%%%
+%Befehle:
+%\\ Zeilenumbruch, eher vermeiden
+%\par oder \\[0,5cm] neuer Absatz
+%\newpage Neue Seite
+%\pagebreak Neue Seite, vorheriger Text wird bündig abgeschlossen
+%\textbf{xxxxx} Fettschrift 
+%\underline{xxxxx} Unterstreichen
+%\section{Einführung} Neues Kapitel erstellen
+%\subsection{xxxxx} Neues Unterkapitel
+%\ref{xxxxx} Referenz erstellen
+%%%
+
+
+\begin{document}
+
+%Titelseite erstellen
+\begin{titlepage}
+	\centering
+	\includegraphics[width=5cm]{M5stick-c-1.jpg}\par\vspace{1cm}
+	{\scshape\LARGE Hochschule Emden/Leer \par}
+	\vspace{1cm}
+	{\scshape\Large Projekt Automatisierungstechnik\par}
+	\vspace{1.5cm}
+	{\huge\bfseries Überwachungssystem basierend
+	auf der IMU des
+	M5-Sticks\par}
+	\vspace{2cm}
+	{\Large\itshape Autoren:\par {Lukas Ohdens, 7013982\par
+	Michel Grüther, 7013\par Luca Schulte, \par Alexander
+	Maul, \par Hauke Helms, }\par}
+	\vfill
+	Betreuender Professor\par
+	Prof. Dr. Wings
+
+	\vfill
+
+	{\large \today\par}
+\end{titlepage}
+
+%Inhaltsverzeichnis
+\tableofcontents
+\newpage
+
+
+\section{Einführung}
+Einleitung, siehe Abbildung \ref{Golf}\par
+
+%Abbildung einfügen
+\begin{figure}[h]	%[h] um an dieser Stelle anzuzeigen
+\begin{center}
+\includegraphics[width=10cm]{DSC_6497.jpg}
+\caption{Testcaption, this is a car}
+\label{Golf}
+\end{center}
+\end{figure}
+
+\subsection{Formeln}
+
+\begin{align}
+E &= mc^2	\\
+x &= \sqrt{26}
+\end{align}
+
+This is a test.
+\newpage
+
+\section{Hauptteil}
+
+Hier kommt der \textbf{Hauptteil}. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.\footnote{\cite[S. 20ff]{Dembowski.2019}}	%Zitation hier in Fußnote mit Seitenangabe
+\par
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+\\[0,5cm]
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+\newpage
+
+\section{Verzeichnisse}
+\addcontentsline{toc}{subsection}{Abbildungsverzeichnis}
+\listoffigures %Abbildungsverzeichnis
+\addcontentsline{toc}{subsection}{Literatur}
+\bibliography{Literatur}	%Literaturverzeichnis
+
+\end{document}
