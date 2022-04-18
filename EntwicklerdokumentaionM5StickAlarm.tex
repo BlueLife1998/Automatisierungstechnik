@@ -1,0 +1,135 @@
+\documentclass[a4paper,12pt]{article}
+
+%benötigte Pakete
+\usepackage[ngerman]{babel}		%Deutscher Standard
+\usepackage[T1]{fontenc}			%Ausgabefont
+\usepackage[utf8]{inputenc}		%Umlaute
+\usepackage{amsmath}				%Formeln einbinden
+\usepackage{mathptmx}			%Schriftart Times
+\usepackage{graphicx}			%Paket für Grafiken
+\usepackage{hyperref}			%Verlinkungen
+
+%Kopf- und Fußzeile erstellen
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\includegraphics[height=1.2cm]{C:/Users/lukas/Desktop/AutoTech/Bilder/Allgemeines_Logo.jpg}}
+%\lhead{\thesubsection}
+%\chead{Überwachungssystem M5 Stick} %Mitte Kopfzeile
+\rhead{\leftmark}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+%\renewcommand{\headrulewidth}{10pt}	%Dicke der Linie
+
+%Literaturangaben
+\bibliographystyle{unsrt}
+
+%Sonstiges
+\setlength\headheight{40pt}
+%\setlength\footskip{50pt}
+%\setlength{\topmargin}{1cm}
+\usepackage[left=3cm,right=3cm,top=2cm,bottom=2cm,includeheadfoot]{geometry}
+\title{Entwicklerdokumentation M5Stick Überwachungssystem}
+%\date{\today} %aktuelles Datum einfügen
+
+%%%
+%Befehle:
+%\\ Zeilenumbruch, eher vermeiden
+%\par oder \\[0,5cm] neuer Absatz
+%\newpage Neue Seite
+%\pagebreak Neue Seite, vorheriger Text wird bündig abgeschlossen
+%\textbf{xxxxx} Fettschrift 
+%\underline{xxxxx} Unterstreichen
+%\section{Einführung} Neues Kapitel erstellen
+%\subsection{xxxxx} Neues Unterkapitel
+%\ref{xxxxx} Referenz erstellen
+%%%
+
+%Bilderpfad: C:/Users/lukas/Desktop/AutoTech/Bilder/
+
+\begin{document}
+
+%Titelseite erstellen
+\begin{titlepage}
+	\centering
+	\includegraphics[width=5cm]{C:/Users/lukas/Desktop/AutoTech/Bilder/M5stick-c-1.jpg}\par\vspace{1cm}
+	{\scshape\LARGE Hochschule Emden/Leer \par}
+	\vspace{1cm}
+	{\scshape\Large Projekt Automatisierungstechnik\par}
+	\vspace{1.5cm}
+	{\huge\bfseries Entwicklerdokumentation: Überwachungssystem basierend
+	auf der IMU des
+	M5-Sticks\par}
+	\vspace{2cm}
+	{\Large\itshape Autoren:\par {Lukas Ohdens, 7013982\par
+	Michel Grüther, 7013909\par Luca Schulte, \par Alexander
+	Maul, 7014104\par Hauke Helms, 7013828}\par}
+	\vfill
+	Betreuender Professor\par
+	Prof. Dr. Wings
+
+	\vfill
+
+	{\large Emden, \today\par}
+\end{titlepage}
+
+%Inhaltsverzeichnis
+\tableofcontents
+\newpage
+
+\section{Projektbeschreibung}
+\subsection{Aufgabenstellung und Konzept}
+Unsere Aufgabe besteht darin, ein “Überwachungssystem basierend auf der IMU des M5-Sticks” zu erstellen. Das Überwachungssystem wird als Alarmanlage in einer “Internet of Things” (IoT) Anwendung in einem Smarthome eingebunden. Der M5-Stick wird, an Türen und Fenstern montiert, als Sensor fungieren und mithilfe seiner IMU Bewegungen erkennen. Sobald Bewegungen erkannt werden, wird ein Signal ins Netzwerk abgegeben. Ein Raspberry Pi, welcher ebenfalls im Netzwerk eingebunden ist, wird die Aufgabe des Broker übernehmen. Gleichzeitig wird der Raspberry Pi auch als Subscriber arbeiten. Als Broker gibt der Pi das Signal weiter und verarbeitet es als Subscriber. Der Pi bewertet nun, ob ein Alarm ausgelöst werden soll oder nicht. Es kann beispielsweise ein Zeitfenster eingestellt werden, in dem immer ein Alarm ausgelöst wird - das macht nachts Sinn, oder während der Arbeitszeit. Zusätzlich soll es die Option geben den Alarm manuell am Pi einzuschalten. Wird ein Alarm ausgelöst, ertönt am Pi ein Buzzer, der eine Alarmanlage symbolisiert und die LED im M5-Stick leuchtet dauerhaft, um erkennbar zu machen, wo der Alarm ausgelöst wurde. Um den Alarm zu deaktivieren, wird am Raspberry Pi ein Knopf gedrückt.
+
+\subsection{Herausforderungen}
+
+\subsection{Problemlösungen}
+
+\section{Beschreibung der Hardware}
+\subsection{M5 Stick C}
+\subsubsection{Aufbau des M5 Stick C}
+Der M5StickC ist in einem Plastikgehäuse (PC - Polycarbonate) untergebracht. Der Stick verfügt über zwei Taster, die je nach Anwendung, frei programmiert werden können. Der Taster A, der in der Abb. 1 zu sehen ist, befindet sich auf der rechten langen Seite und der Taster B auf der Frontseite. Des Weiteren hat der M5Stick ein farbiges Display mit den Abmaßen von 80x160 Pixel bzw. 0,96“. Auf der linken langen Seite befindet sich die AN / AUS / Restart-Taste, die bei einer 2-sekündigen Betätigung an- und bei einer 6-sekündigen Betätigung ausgeschaltet wird. In den beiden kurzen Seiten sind die Schnittstellen (USB-Typ-C, Grove) sowie ein im Raster von 2,54mm, 8 polige Buchsenleiste für Breadboardkabel verbaut. Grove ist ein benutzerfreundliches System, mit dem sich ein Prozessor (z.B. Arduino) mit einer Vielzahl von Modulen, Sensoren und Eingängen verbinden lässt. Auf der Rückseite wird die Pinbelegung der Buchsenleiste dargestellt. [M5S]
+
+\begin{figure}[h]	%[h] um an dieser Stelle anzuzeigen
+\begin{center}
+\includegraphics[width=10cm]{C:/Users/lukas/Desktop/AutoTech/Bilder/DSC_6497.jpg}
+\caption{Platzhalterbild!}
+\label{Golf}
+\end{center}
+\end{figure}
+
+\subsubsection{Technische Daten des M5StickC}
+\begin{itemize}
+\item Eingebauter Mikrocontroller ESP 32 mit 240 MHz dual-core, 600 DMIPS, 520 KB SRAM
+\item Flash Speicher von 4MB
+\item Akku – 95mAh mit 3,7V
+\item Einsatztemperatur von 0°C bis 60°C
+\item Infrarot Übertragung
+\item Abmaße (L x B x H) – 48,2 mm x 25,5 mm x 13,7 mm
+\item 5V Ein- und Ausgangsspannung
+\end{itemize}
+
+\subsection{Raspberry Pi 3}
+
+\subsection{Weitere Hardware}
+
+\subsection{Anschlussplan Pi 3}
+Der Anschluss der Hardwarebauteile an den Pi 3 erfolgt über die auf dem Pi verbauten Pin's nach dem Anschlussplan (Abb. xx). Der Raspberry Pi benötigt einen Anschluss per Micro-USB zur Spannungsversorgung. Dies kann, je nach Anliegen, entweder über den Router erfolgen, sofern dieser über eine USB-Schnittstelle verfügt, oder über einen externen Spannungswandler (vgl. Handyladegerät). Der Warnsummer/Buzzer benötigt keine externe Spannungsquelle und wird direkt über den Pi mit Spannung versorgt.
+
+\begin{figure}[h]	%[h] um an dieser Stelle anzuzeigen
+\begin{center}
+\includegraphics[width=10cm]{C:/Users/lukas/Desktop/AutoTech/Bilder/AnschlussplanPi.jpg}
+\caption{Anschlussschematik Raspberry Pi 3}
+\label{Anschlussplan}
+\end{center}
+\end{figure}
+
+\newpage
+
+\section{Verzeichnisse}
+\addcontentsline{toc}{subsection}{Abbildungsverzeichnis}
+\listoffigures %Abbildungsverzeichnis
+\addcontentsline{toc}{subsection}{Literatur}
+\bibliography{Literatur}	%Literaturverzeichnis
+
+\end{document}
