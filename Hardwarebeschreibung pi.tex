@@ -83,7 +83,7 @@ Für das Projekt sind insbesondere die GPIO-Pins und der Ethernetport von Bedeut
 			\hline
 			SIG (S)   & GPIO 4 \hspace{0,1cm}(Pin 7)\\  
 			\hline
-			VCC~ (+; mittlerer Pin)   & 3,3V 	\hspace{0,7cm}(Pin 1)         \\ 
+			VCC~ ($+$; mittlerer Pin)   & 3,3V 	\hspace{0,7cm}(Pin 1)         \\ 
 			\hline
 			GND (-)    & Ground  	\hspace{0,2cm}(Pin 6)         \\
 			\hline
@@ -94,7 +94,7 @@ Für das Projekt sind insbesondere die GPIO-Pins und der Ethernetport von Bedeut
 	
 	\begin{figure}[!h]
 	\centering
-	\includegraphics[height=300pt]{img/schaltplan}
+	\includegraphics[height=300pt]{img/platzhalter}
 	\caption{Schaltplan ST1143 an Raspberry Pi}
 	\label{Bildlabel}
 	
@@ -111,13 +111,14 @@ Für das Projekt sind insbesondere die GPIO-Pins und der Ethernetport von Bedeut
 
 \subsection{Taster}
 
-Der Alarm soll über zwei Tastermodule Iduino SE043 deaktiviert beziehungsweise manuell aktiviert werden können.\\ 
-Die Module werden mittels Jumperkabeln mit den GPIO Pins des Pis verbunden. \\ 
-
+Der Alarm soll über ein Tastermodul SBC-BUTTON2 mit jeweils einem Button deaktiviert beziehungsweise manuell aktiviert werden können.\\ 
+Das Modul wird mittels Jumperkabeln mit den GPIO Pins des Pis verbunden. \\ 
+In der gewählten Anschlusskonfiguration wird das Modul als High-Aktiv betrieben. Dies bedeutet, dass bei Tastendruck der GPIO23 bzw. GPIO24 mit der Spannungsquelle verbunden wird und der Raspberry PI jeweils ein HIGH Signal erhält. [vinduino]\\ 
+Es wäre ebenfalls möglich durch vertauschen des VCC und GND Anschlusses das Modul als Low-Aktiv zu betreiben.
 	\begin{figure}[H]
 	\centering
-	\includegraphics[height=150pt]{img/SE043}
-	\caption{Iduino SE043 (Reichelt Bestelllink)}
+	\includegraphics[height=150pt]{img/BUTTON2}
+	\caption{Joy-it SBC-BUTTON2 (Reichelt Bestelllink)}
 	\label{Bildlabel}
 \end{figure}
 
@@ -125,40 +126,28 @@ Die Module werden mittels Jumperkabeln mit den GPIO Pins des Pis verbunden. \\
 	\centering
 	\begin{tabular}{|p{5cm}|p{5cm}|} 
 		\hline
-		Taster 1 (Aktivieren) & Raspberry Pi  \\ 
+		Tastermodul & Raspberry Pi  \\ 
 		\hline
-		SIG(S)                   & GPIO 17 (Pin 11)               \\ 
+		SIG(S1)                   & GPIO 23 \hspace{0,3cm}(Pin 16)               \\ 
 		\hline
-		VCC~(+, mittlerer Pin)                  & 5V (Pin 2)            \\ 
+		SIG(S2)                   & GPIO 24 \hspace{0,3cm}(Pin 18)           \\
 		\hline
-		GND(-)                   & Ground (Pin 14)           \\
+		VCC~(+)   & 5V \hspace{1,45cm}(Pin\hspace{0,35cm}4)            \\ 
 		\hline
-	\end{tabular}
-	\caption{Verbindung Taster 1 SE043 mit Pi} 
+		GND(-)                   & Ground \hspace{0,6cm}(Pin 14)           \\
+		\hline
+		
+\end{tabular}
+	\caption{Verbindung Taster SE043 mit Pi} 
 \end{table}
 
 
-\begin{table}[H]
-	\centering
-	\begin{tabular}{|p{5cm}|p{5cm}|} 
-		\hline
-		Taster 2 (Deaktivieren) & Raspberry Pi  \\ 
-		\hline
-		SIG(S)                   & GPIO 27 (Pin 13)                \\ 
-		\hline
-		VCC~(+, mittlerer Pin)                  & 5V  (Pin 4)          \\ 
-		\hline
-		GND(-)                   & Ground (Pin 20)           \\
-		\hline
-	\end{tabular}
-	\caption{Verbindung Taster 2 SE043 mit Pi} 
-\end{table}
 
 
 	\begin{figure}[H]
 	\centering
 	\includegraphics[height=250pt]{img/platzhalter}
-	\caption{Schaltplan Taster}
+	\caption{Schaltplan Taster SE043 an Raspberry Pi}
 	\label{Bildlabel}
 \end{figure}
 
@@ -181,5 +170,5 @@ Eine MicroSDHC-Speicherkarte mit einer Kapazität von 16GB und einer Lesegeschwi
 
 [4]https://draeger-it.blog/raspberry-pi-tutorial-3-piezo-buzzer/
 
-
+[vinduino] http://vinduino.blogspot.com/2013/07/active-high-vs-active-low-button.html?m=1  
 \end{document}
