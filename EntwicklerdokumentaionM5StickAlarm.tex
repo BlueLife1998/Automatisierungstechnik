@@ -8,18 +8,8 @@
 \usepackage{mathptmx}			%Schriftart Times
 \usepackage{graphicx}			%Paket für Grafiken
 \usepackage{hyperref}			%Verlinkungen
-
-%Kopf- und Fußzeile erstellen
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\lhead{\includegraphics[height=1.2cm]{C:/Users/lukas/Desktop/AutoTech/Bilder/Allgemeines_Logo.jpg}}
-%\lhead{\thesubsection}
-%\chead{Überwachungssystem M5 Stick} %Mitte Kopfzeile
-\rhead{\leftmark}
-\lfoot{}
-\cfoot{}
-\rfoot{\thepage}
-%\renewcommand{\headrulewidth}{10pt}	%Dicke der Linie
+\usepackage{float}
+\usepackage[bottom]{footmisc}	%Fußnote am Ende der Seite darstellen
 
 %Literaturangaben
 \bibliographystyle{unsrt}
@@ -31,6 +21,19 @@
 \usepackage[left=3cm,right=3cm,top=2cm,bottom=2cm,includeheadfoot]{geometry}
 \title{Entwicklerdokumentation M5Stick Überwachungssystem}
 %\date{\today} %aktuelles Datum einfügen
+\graphicspath{{C:/Users/lukas/Desktop/AutoTech/Bilder/}} %Bilderpfad für übergeordneten Ordner
+
+%Kopf- und Fußzeile erstellen
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\includegraphics[height=1.2cm]{Allgemeines_Logo.jpg}}
+%\lhead{\thesubsection}
+%\chead{Überwachungssystem M5 Stick} %Mitte Kopfzeile
+\rhead{\leftmark}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+%\renewcommand{\headrulewidth}{10pt}	%Dicke der Linie
 
 %%%
 %Befehle:
@@ -52,7 +55,7 @@
 %Titelseite erstellen
 \begin{titlepage}
 	\centering
-	\includegraphics[width=5cm]{C:/Users/lukas/Desktop/AutoTech/Bilder/M5stick-c-1.jpg}\par\vspace{1cm}
+	\includegraphics[width=5cm]{M5stick-c-1.jpg}\par\vspace{1cm}
 	{\scshape\LARGE Hochschule Emden/Leer \par}
 	\vspace{1cm}
 	{\scshape\Large Projekt Automatisierungstechnik\par}
@@ -62,7 +65,7 @@
 	M5-Sticks\par}
 	\vspace{2cm}
 	{\Large\itshape Autoren:\par {Lukas Ohdens, 7013982\par
-	Michel Grüther, 7013909\par Luca Schulte, \par Alexander
+	Michel Grüther, 7013909\par Luca Schulte, 7014030\par Alexander
 	Maul, 7014104\par Hauke Helms, 7013828}\par}
 	\vfill
 	Betreuender Professor\par
@@ -88,13 +91,13 @@ Unsere Aufgabe besteht darin, ein “Überwachungssystem basierend auf der IMU d
 \section{Beschreibung der Hardware}
 \subsection{M5 Stick C}
 \subsubsection{Aufbau des M5 Stick C}
-Der M5StickC ist in einem Plastikgehäuse (PC - Polycarbonate) untergebracht. Der Stick verfügt über zwei Taster, die je nach Anwendung, frei programmiert werden können. Der Taster A, der in der Abb. 1 zu sehen ist, befindet sich auf der rechten langen Seite und der Taster B auf der Frontseite. Des Weiteren hat der M5Stick ein farbiges Display mit den Abmaßen von 80x160 Pixel bzw. 0,96“. Auf der linken langen Seite befindet sich die AN / AUS / Restart-Taste, die bei einer 2-sekündigen Betätigung an- und bei einer 6-sekündigen Betätigung ausgeschaltet wird. In den beiden kurzen Seiten sind die Schnittstellen (USB-Typ-C, Grove) sowie ein im Raster von 2,54mm, 8 polige Buchsenleiste für Breadboardkabel verbaut. Grove ist ein benutzerfreundliches System, mit dem sich ein Prozessor (z.B. Arduino) mit einer Vielzahl von Modulen, Sensoren und Eingängen verbinden lässt. Auf der Rückseite wird die Pinbelegung der Buchsenleiste dargestellt. [M5S]
+Der M5StickC ist in einem Plastikgehäuse (PC - Polycarbonate) untergebracht. Der Stick verfügt über zwei Taster, die je nach Anwendung, frei programmiert werden können. Der Taster A, der in der Abb. \ref{AufbauM5StickC} zu sehen ist, befindet sich auf der rechten langen Seite und der Taster B auf der Frontseite. Des Weiteren hat der M5Stick ein farbiges Display mit den Abmaßen von 80x160 Pixel bzw. 0,96“. Auf der linken langen Seite befindet sich die AN / AUS / Restart-Taste, die bei einer 2-sekündigen Betätigung an- und bei einer 6-sekündigen Betätigung ausgeschaltet wird. In den beiden kurzen Seiten sind die Schnittstellen (USB-Typ-C, Grove) sowie ein im Raster von 2,54mm, 8 polige Buchsenleiste für Breadboardkabel verbaut. Grove ist ein benutzerfreundliches System, mit dem sich ein Prozessor (z.B. Arduino) mit einer Vielzahl von Modulen, Sensoren und Eingängen verbinden lässt. Auf der Rückseite wird die Pinbelegung der Buchsenleiste dargestellt. \footnote{\cite{M5STACK.}}
 
-\begin{figure}[h]	%[h] um an dieser Stelle anzuzeigen
+\begin{figure}[H]	%[H] um an dieser Stelle anzuzeigen
 \begin{center}
-\includegraphics[width=10cm]{C:/Users/lukas/Desktop/AutoTech/Bilder/DSC_6497.jpg}
-\caption{Platzhalterbild!}
-\label{Golf}
+\includegraphics[width=10cm]{AufbauM5StickC.jpg}
+\caption{Aufbau des Entwicklungsboardes „M5StickC" (Quelle: m5stack)}
+\label{AufbauM5StickC}
 \end{center}
 \end{figure}
 
@@ -109,16 +112,180 @@ Der M5StickC ist in einem Plastikgehäuse (PC - Polycarbonate) untergebracht. De
 \item 5V Ein- und Ausgangsspannung
 \end{itemize}
 
+%IMUAchsen
+\subsubsection{Verbaute Sensoren}
+In dem M5StickC ist ein digitales Mikrofon (SPM1423) und eine Echtzeituhr (BM8563), auch RTC
+(Real-Time-Clock) genannt, verbaut. Des Weiteren hat der Stick eine 6-Achsen-IMU (MPU-6886)
+verbaut \footnote{\cite{M5STACK.}}. Die Abkürzung IMU steht für „Inertial Measurement Unit“, was nichts anderes als
+„Inertiale Messeinheit“ heißt. Die IMU ist eine Messeinheit, die aus der Kombination aus einem 3-
+Achsen- Beschleunigungssensors und einem 3-Achsen-Gyroskopsensors besteht. Die Beschleunigung
+wird in der X, Y und Z-Richtung gemessen (s. Abb. \ref{IMUAchsen}). Für jede Achse wird eine separate Prüfmasse
+verwendet, die bei Beschleunigung oder Verzögerung ein Weg zurücklegt. Der Abstand, der sich aus
+dem Weg nach der Beschleunigung minus dem Weg vor der Beschleunigung ergibt, bestimmt die
+Kapazität. Die Kapazität wird anschließend von einem Aufnehmer erkannt, in einen Messwert
+umgerechnet und als Spannungssignal ausgegeben. Der Endwert des Ausgangs kann auf ±2g, ±4g,
+±8g oder ±16g programmieren werden. \footnote{\cite{InvenSense.}}
+
+Bei dem Gyroskop wird zunächst die Drehung um die dazugehörige Achse (s. Abb. 2) gemessen.
+Wenn die Kreisel des Gyroskops um eine Achse gedreht werden, verursacht der Coriolis-Effekt eine
+Schwingung, die anschließend von einem kapazitiven Aufnehmer erkannt wird. Das aufgenommene
+Signal wird darauf verstärkt und gefiltert, um eine Spannung zu erzeugen. Diese Spannung ist
+proportional zu der Winkelgeschwindigkeit des Gyroskops. Die Winkelgeschwindigkeit lässt sich
+digital auf ±250, ± 500, ± 1000 oder ±2000 °
+s
+(dps=degrees per second) programmieren. \footnote{\cite{InvenSense.}}
+
+\begin{figure}[H]	%[H] um an dieser Stelle anzuzeigen
+\begin{center}
+\includegraphics[width=10cm]{IMUAchsen.jpg}
+\caption{Beschleunigungs- und Drehachsen der IMU
+(Quelle: InvenSense)}
+\label{IMUAchsen}
+\end{center}
+\end{figure}
+
 \subsection{Raspberry Pi 3}
+Der Raspberry Pi ist ein opensource Minicomputer, welcher ursprünglich als kostengünstiges System für Lernzwecke im Bereich der Programmierung gedacht war. \footnote{\cite{RaspberryPi.20.08.2015}} \par
+Besonders in der Makerszene erfreut sich der Raspberry Pi (Abb. \ref{pi_mitgehaeuse} einer großen Beliebtheit. Es sind Projekte vom Desktopcomputer \footnote{\cite{RaspberryPi.20.08.2015}} bis hin zur Steuerung und Überwachung heimischer 3D-Drucker \footnote{\cite{Hauge.20.04.2022}} realisierbar.\\[3mm]
+%Das Produktprotfolio reicht vom leistungsschwächeren Raspberry Pi (1Ghz singlecore, 512 MB RAM) zum leistungsstärkeren Raspberry Pi 
+%\\[3mm]
+
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics[height=250pt]{pi_mitgehaeuse.png}
+	\caption{Raspberry Pi 3B+ (eigenes Foto)}
+	\label{pi_mitgehaeuse}
+\end{figure}	
+
+
+\subsubsection{Raspberry Pi für das Projekt}
+Für das Projekt Überwachungssystem mittels der IMU des M5 Sticks soll ein\par 
+Raspberry Pi 3B+ als sogenannter IoT Broker und als Aktor für den Alarm genutzt werden.\par
+%Das Modell 3B+ verfügt über eine Rechenleistung von
+Der Raspberry Pi 3B+ wurde für das Projekt am Geeignetsten eingestuft. Er verfügt über einen Gigabit-LAN Anschluss welcher mit Hilfe eines Ethernetkabels für eine stabile Verbindung mit dem Rooter des Heimnetzwerkes sorgen soll. Verglichen mit älteren Raspberry Pi Modellen ist der 3B+ mit einer etwas stärkeren CPU, sowie einer WLAN und Bluetooth Karte ausgestattet, welche die Möglichkeiten bieten das Projekt um mehr IoT Geräte, sprich Sensoren und Aktoren zu erweitern. Zudem ist der preisliche Unterschied (Unverbindliche Preisempfehlung) zu den Vorgängermodellen marginal.  
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics[height=200pt]{tabelle_pi_vergleich}
+	\caption{Vergleich der verschiedenen Raspberry Pi Modelle \protect\cite[S. 59]{Huwe.2019}}
+	\label{tabelle_pi_vergleich}
+\end{figure}
+
+
+\subsubsection{Anschlussmöglichkeiten Anhand Raspberry Pi 3B+}
+Der Raspberry Pi 3B+ verfügt im Allgemeinen über folgende Anschlussmöglichkeiten:\par 
+$\bullet$ HDMI   \par %\hspace{20pt} $\bullet$ 
+$\bullet$ 3,5mm AUX\par 
+$\bullet$ 4 $\times$ USB 2.0 \par 
+$\bullet$ Ethernet 1Gbit/RJ45\par 
+$\bullet$ CCI (Camera Connector Interface)\par 
+$\bullet$  DSI (Display Serial Interface)\par
+$\bullet$ 40 GPIO-Pins\par
+$\bullet$ Steckplatz für die microSD-Karte\par
+$\bullet$ Micro-USB Anschluss für die Stromversorgung des PIs\par
+Quelle: IOT at Home S.60\par
+
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=10cm]{RaspiAnschluesse}
+		\caption{Hardwarebezeichnung auf Pi mit Beschriftung}
+		\label{RaspiAnschluesse}
+	\end{figure}
+	
+Für das Projekt sind insbesondere die GPIO-Pins und der Ethernetport von Bedeutung.\par
 
 \subsection{Weitere Hardware}
+\subsubsection{Piezo Buzzer Modul}
+	Um beim Auslösen der Alarmanlage ein Warnsignal zu erzeugen, soll ein aktives Piezo Buzzer Modul ST1143 der Marke Iduino (Abb. \ref{ST1143} eingesetzt werden.\par Die Pins des Buzzers werden wie folgt mittels Jumperkabeln mit den GPIO Pins des Pis verbunden: \footnote{\cite{Draeger.2019}}
+	
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|p{5cm}|p{5cm}|} 
+			\hline
+			Buzzer & Raspberry Pi\\ 
+			\hline
+			SIG (S)   & GPIO 4 \hspace{0,1cm}(Pin 7)\\  
+			\hline
+			VCC~ ($+$; mittlerer Pin)   & 3,3V 	\hspace{0,7cm}(Pin 1)\\
+			\hline
+			GND (-)    & Ground  	\hspace{0,2cm}(Pin 6)\\
+			\hline
+		\end{tabular}
+	\caption{Verbindung ST1143 mit Pi}
+	\end{table} 
+
+	
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=10cm]{BuzzerAnschluss}
+	\caption{Schaltplan ST1143 an Raspberry Pi}
+	\label{BuzzerAnschluss}
+	\end{figure}
+
+	\begin{figure}[H]	%H
+	\centering
+	\includegraphics[height=150pt]{ST1143}
+	\caption{Aktiver Piezo Buzzer ST1143 \href{https://www.reichelt.de/sg/de/entwicklerboards-summer-aktiv-debo-buzzer-a2-p282660.html}{(Reichelt bestelllink)}}
+	\label{ST1143}
+	\end{figure}
+
+
+
+\subsubsection{Taster}
+
+Der Alarm soll über ein Tastermodul SBC-BUTTON2 (Abb. \ref{BUTTON2} mit jeweils einem Button deaktiviert beziehungsweise manuell aktiviert werden können.\par
+Das Modul wird mittels Jumperkabeln mit den GPIO Pins des Pis verbunden. \par
+In der gewählten Anschlusskonfiguration wird das Modul als High-Aktiv betrieben. Dies bedeutet, dass bei Tastendruck der GPIO23 bzw. GPIO24 mit der Spannungsquelle verbunden wird und der Raspberry PI jeweils ein HIGH Signal erhält. \footnote{\cite{.19.04.2022}}\par 
+Es wäre ebenfalls möglich durch vertauschen des VCC und GND Anschlusses das Modul als Low-Aktiv zu betreiben.
+	\begin{figure}[h] %H
+	\centering
+	\includegraphics[height=150pt]{BUTTON2}
+	\caption{Joy-it SBC-BUTTON2 \href{https://www.reichelt.de/sg/de/entwicklerboards-2-tasten-modul-debo-button2-p316186.html}{(Reichelt bestelllink)}}
+	\label{BUTTON2}
+\end{figure}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{|p{5cm}|p{5cm}|} 
+		\hline
+		Tastermodul & Raspberry Pi\\ 
+		\hline
+		SIG(S1)                   & GPIO 23 \hspace{0,3cm}(Pin 16)\\
+		\hline
+		SIG(S2)                   & GPIO 24 \hspace{0,3cm}(Pin 18)\\
+		\hline
+		VCC~(+)   & 5V \hspace{1,45cm}(Pin\hspace{0,35cm}4)\\ 
+		\hline
+		GND(-)                   & Ground \hspace{0,6cm}(Pin 14)\\
+		\hline
+		
+\end{tabular}
+	\caption{Verbindung Taster SE043 mit Pi} 
+\end{table}
+
+
+
+
+	\begin{figure}[H]
+	\centering
+	\includegraphics[width=15cm]{TasterAnschluss}
+	\caption{Schaltplan Taster SE043 an Raspberry Pi}
+	\label{TasterAnschluss}
+\end{figure}
+
+\subsubsection{Zubehör des Raspberry Pi}
+
+Für die Spannungsversorgung soll ein originales Raspberry Pi Micro-USB-Netzteil mit einer maximal abrufbaren Leistung von 13W genutzt werden.\par
+
+Eine MicroSDHC-Speicherkarte mit einer Kapazität von 16GB und einer Lesegeschwindigkeit von bis zu 90 MB/s soll den nötigen Speicher für den Mosquitto MQTT broker und weitere Aufgaben bereitstellen. \href{https://www.reichelt.de/sg/de/microsdhc-speicherkarte-16gb-transcend-class-10-uhs-i-ts16gusdcu1-p220722.html}{(Reichelt bestelllink)} 
 
 \subsection{Anschlussplan Pi 3}
-Der Anschluss der Hardwarebauteile an den Pi 3 erfolgt über die auf dem Pi verbauten Pin's nach dem Anschlussplan (Abb. xx). Der Raspberry Pi benötigt einen Anschluss per Micro-USB zur Spannungsversorgung. Dies kann, je nach Anliegen, entweder über den Router erfolgen, sofern dieser über eine USB-Schnittstelle verfügt, oder über einen externen Spannungswandler (vgl. Handyladegerät). Der Warnsummer/Buzzer benötigt keine externe Spannungsquelle und wird direkt über den Pi mit Spannung versorgt.
+Der Anschluss der Hardwarebauteile an den Pi 3 erfolgt über die auf dem Pi verbauten Pin's nach dem Anschlussplan (Abb. \ref{Anschlussplan}). Der Raspberry Pi benötigt einen Anschluss per Micro-USB zur Spannungsversorgung. Dies kann, je nach Anliegen, entweder über den Router erfolgen, sofern dieser über eine USB-Schnittstelle verfügt, oder über einen externen Spannungswandler (vgl. Handyladegerät). Der Warnsummer/Buzzer benötigt keine externe Spannungsquelle und wird direkt über den Pi mit Spannung versorgt.
 
-\begin{figure}[h]	%[h] um an dieser Stelle anzuzeigen
+\begin{figure}[H]	%[h] um an dieser Stelle anzuzeigen
 \begin{center}
-\includegraphics[width=10cm]{C:/Users/lukas/Desktop/AutoTech/Bilder/AnschlussplanPi.jpg}
+\includegraphics[width=15cm]{Anschlussplan.png}
 \caption{Anschlussschematik Raspberry Pi 3}
 \label{Anschlussplan}
 \end{center}
