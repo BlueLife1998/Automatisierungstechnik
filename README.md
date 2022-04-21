@@ -32,9 +32,9 @@ Das Verzeichnis Datenblaetter enthält die Datenblätter für unsere Hardwarekom
 
 ### Kurzbeschreibung aller Dateien
 ***
-EntwicklerdokumentationM5StickAlarm.pdf: In dieser Datei ist unsere Dokumentation zum Projekt zu finden. Darin enthalten sind die Bestellliste, die Beschreibung der Hardware, Herausforderungen und Lösungen. <br>
-EntwicklerdokumentationM5StickAlarm.tex: Dies ist der TeX Quellcode für das oben aufgeführte .pdf Dokument mit gleichem Namen. Diese Datei ist Auschlaggebend für sämtliche Formatierungen. <br>
-Bedienungsanleitung.pdf: In dieser Datei sind die Funktionen für den Nutzer erklärt. Sie beschreibt die Hardware und die vorgesehene Nutzung unseres Produkts. <br>
-Bedienungsanleitung.tex: Dies ist der TeX Quellcode zur Bedienungsanleitung.pdf. <br>
-Literatur.bib: Dieses bibfile enthält alle Quellen und Literaturen, die wir für unsere Dokumentationen genutzt haben. <br>
-README.md: Diese Datei, sie dient der Übersicht und Kurzbeschreibung unseres Projekts. <br>
+**EntwicklerdokumentationM5StickAlarm.pdf:** In dieser Datei ist unsere Dokumentation zum Projekt zu finden. Darin enthalten sind die Bestellliste, die Beschreibung der Hardware, Herausforderungen und Lösungen. <br>
+**EntwicklerdokumentationM5StickAlarm.tex:** Dies ist der TeX Quellcode für das oben aufgeführte .pdf Dokument mit gleichem Namen. Diese Datei ist Auschlaggebend für sämtliche Formatierungen. <br>
+**Bedienungsanleitung.pdf:** In dieser Datei sind die Funktionen für den Nutzer erklärt. Sie beschreibt die Hardware und die vorgesehene Nutzung unseres Produkts. <br>
+**Bedienungsanleitung.tex:** Dies ist der TeX Quellcode zur Bedienungsanleitung.pdf. <br>
+**Literatur.bib:** Dieses bibfile enthält alle Quellen und Literaturen, die wir für unsere Dokumentationen genutzt haben. <br>
+**README.md:** Diese Datei, sie dient der Übersicht und Kurzbeschreibung unseres Projekts. <br>
