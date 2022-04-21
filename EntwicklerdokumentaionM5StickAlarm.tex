@@ -21,7 +21,7 @@
 \usepackage[left=3cm,right=3cm,top=2cm,bottom=2cm,includeheadfoot]{geometry}
 \title{Entwicklerdokumentation M5Stick Überwachungssystem}
 %\date{\today} %aktuelles Datum einfügen
-\graphicspath{{C:/Users/lukas/Desktop/AutoTech/Bilder/}} %Bilderpfad für übergeordneten Ordner
+\graphicspath{{Bilder/}} %Bilderpfad 
 
 %Kopf- und Fußzeile erstellen
 \usepackage{fancyhdr}
@@ -34,6 +34,24 @@
 \cfoot{}
 \rfoot{\thepage}
 %\renewcommand{\headrulewidth}{10pt}	%Dicke der Linie
+
+%Bestelllinks:
+%------------------------------------Links-----------------------------------------------------------------------%
+\newcommand{\linkPi}{https://www.reichelt.de/raspberry-pi-3-b-4x-1-4-ghz-1-gb-ram-wlan-bt-raspberry-pi-3b--p217696.html}
+
+\newcommand{\linkPiNT}{https://www.reichelt.de/sg/de/raspberry-pi-netzteil-5-v-2-5-a-micro-usb-schwarz-rasp-nt-25-sw-e-p240934.html}
+
+\newcommand{\linkMstick}{https://eckstein-shop.de/M5StackM5StickCPLUSESP32-PICOMiniIoTDevelopmentKit2CInfrared2FRTC2FMic2FLED2FIMU2FPMU}
+
+\newcommand{\linkBuzzer}{https://www.reichelt.de/sg/de/entwicklerboards-summer-aktiv-debo-buzzer-a2-p282660.html}
+
+\newcommand{\linkLankabel}{https://www.reichelt.de/sg/de/cat-6-slim-light-kabel-u-utp-1-5-m-grau-slim-ul6-1-5-gr-p205582.html}
+
+\newcommand{\linkmicrosd}{https://www.reichelt.de/sg/de/microsdhc-speicherkarte-16gb-transcend-class-10-uhs-i-ts16gusdcu1-p220722.html}
+
+\newcommand{\linkTaster}{https://www.reichelt.de/sg/de/entwicklerboards-2-tasten-modul-debo-button2-p316186.html}
+
+\newcommand{\linkJumpercable}{https://www.reichelt.de/sg/de/entwicklerboards-steckbrueckenkabel-40-pole-f-f-20-cm-debo-kabelset12-p282700.html}
 
 %%%
 %Befehle:
@@ -85,10 +103,60 @@
 Unsere Aufgabe besteht darin, ein “Überwachungssystem basierend auf der IMU des M5-Sticks” zu erstellen. Das Überwachungssystem wird als Alarmanlage in einer “Internet of Things” (IoT) Anwendung in einem Smarthome eingebunden. Der M5-Stick wird, an Türen und Fenstern montiert, als Sensor fungieren und mithilfe seiner IMU Bewegungen erkennen. Sobald Bewegungen erkannt werden, wird ein Signal ins Netzwerk abgegeben. Ein Raspberry Pi, welcher ebenfalls im Netzwerk eingebunden ist, wird die Aufgabe des Broker übernehmen. Gleichzeitig wird der Raspberry Pi auch als Subscriber arbeiten. Als Broker gibt der Pi das Signal weiter und verarbeitet es als Subscriber. Der Pi bewertet nun, ob ein Alarm ausgelöst werden soll oder nicht. Es kann beispielsweise ein Zeitfenster eingestellt werden, in dem immer ein Alarm ausgelöst wird - das macht nachts Sinn, oder während der Arbeitszeit. Zusätzlich soll es die Option geben den Alarm manuell am Pi einzuschalten. Wird ein Alarm ausgelöst, ertönt am Pi ein Buzzer, der eine Alarmanlage symbolisiert und die LED im M5-Stick leuchtet dauerhaft, um erkennbar zu machen, wo der Alarm ausgelöst wurde. Um den Alarm zu deaktivieren, wird am Raspberry Pi ein Knopf gedrückt.
 
 \subsection{Herausforderungen}
+Zu den Herausforderungen sehen wir zunächst die Einbindung des Raspberry Pi sowie des M5-Sticks in das Netzwerk. Insbesondere der M5 Stick kann ich aufgrund der fehlenden Benutzeroberfläche und den geringeren Anschlussmöglichkeiten für Peripheriegeräte zu initialen Problemen führen.\par
+Außerdem sehen wir die Verbindung zwischen Raspberry Pi und M5-Stick innerhalb des Netzwerkes als Herausforderung, da die Geräte mithilfe deren Netzwerkadressen kommunizieren müssen.\par 
+Als weitere Schwierigkeit sehen wir die Einstellung der Empfindlichkeit der 6-Achsen-IMU. Da bereits kleinste Beschleunigungen zu einer Ausgabe führen, könnte der Alarm bereits bei kleinsten Bewegungen durch bspw. Wind ausgelöst werden. 
 
 \subsection{Problemlösungen}
+Die Einbindung des Raspberry Pi und M5-Sticks können wir auktuell noch nicht einschätzen und haben dafür auch noch keine Lösungen.\par 
+Die Einstellung der Empfindlichkeit der IMU können wir durch Versuche herausfinden. Hier können wir Messungen durchführen, ab wann eine Türöffnung stattfindet oder es sich lediglich um eine Schwingende Tür handelt (ausgelöst durch Wind o.Ä.).
 
 \section{Beschreibung der Hardware}
+\subsection{Materialliste}
+Anmerkung: Die Versandkosten betragen bei Reichelt 5,95€ und bei Eckstein abhängig von der Versandart 1,99€ (nicht verfolgbar, nicht versichert) oder 3,50€ (verfolgbar, versichert).\par Die Versanddauer, die Verfügbarkeit sowie der Kaufpreis können sich aufgrund aktueller Begebenheiten innerhalb kurzer Zeit ändern. Es fällt kein Mindermengenzuschlag an.\par 
+%Es gibt eine Vergünstigung für Hochschulen, dazu oben neben der Sprache den Reiter auf Schule, Hochschule, Universität stellen.\\ 
+Alle Internetlinks und Preise wurden zuletzt abgerufen am 20.04.2022
+
+\vspace{1cm}
+%\centering
+
+
+
+\begin{table}[H]
+	\centering
+	
+	\resizebox{500pt}{!}{
+	\begin{tabular}{||p{1,2cm}|p{2,5cm}|p{3cm}|l|p{2,5cm}|r|}
+		\hline
+		Anzahl & Bezeichnung               & Artikel-Nr.       	& Einzelpreis   & Bemerkungen 					& Bestellink 						  \\ 
+		\hline
+		\hline
+		1      & Raspberry Pi 3B+          & RASPBERRYPI 3 B+ 	& 46,20 € &                           		&\href{\linkPi}{reichelt.de}    	                             \\
+		\hline
+		1      & Raspberry Pi - Netzteil   & RASP NT 25 SW E      & 7,25 €  &         	               		&\href{\linkPiNT}{reichelt.de}  	                             \\
+		\hline
+		1      & M5StickC                  &                   	& 29,95€        & Nur M5 Stick C+ verfügbar        &\href{\linkMstick}{eckstein-shop.de} 	                             \\
+		\hline
+		1      & Ethernet Kabel            & SLIM UL6 1,5 GR 	& 4,10€        & Auch anderes Kabel in Ordnung, wenn bereits bestellt und lagernd            					&\href{\linkLankabel}{reichelt.de}           		 				                           \\
+		\hline
+		1      & Piezo Buzzer              & DEBO BUZZER A2     	& 1,45 €  		&             					&\href{\linkBuzzer }{reichelt.de}                                \\
+		\hline
+		1      & Micro SD Karte 16Gb       &  TS16GUSDCU1       &7,95€         &      					& \href{\linkmicrosd}{reichelt.de} \\ 
+		\hline
+			1      & Taster              &DEBO BUTTON2         &2,20€         &     					&\href{\linkTaster}{reichelt.de}  \\ 
+		\hline
+		1      & Jumperkabel set              &DEBO KABELSET12        &1,70€         &     					&\href{\linkJumpercable}{reichelt.de}  \\ 
+		\hline
+		          						                  
+	\end{tabular}
+}
+
+\caption{Materialliste für das Projekt Überwachungssystem basierend auf der IMU des M5-Sticks}	
+\end{table}
+
+%\justify
+\newpage
+
 \subsection{M5 Stick C}
 \subsubsection{Aufbau des M5 Stick C}
 Der M5StickC ist in einem Plastikgehäuse (PC - Polycarbonate) untergebracht. Der Stick verfügt über zwei Taster, die je nach Anwendung, frei programmiert werden können. Der Taster A, der in der Abb. \ref{AufbauM5StickC} zu sehen ist, befindet sich auf der rechten langen Seite und der Taster B auf der Frontseite. Des Weiteren hat der M5Stick ein farbiges Display mit den Abmaßen von 80x160 Pixel bzw. 0,96“. Auf der linken langen Seite befindet sich die AN / AUS / Restart-Taste, die bei einer 2-sekündigen Betätigung an- und bei einer 6-sekündigen Betätigung ausgeschaltet wird. In den beiden kurzen Seiten sind die Schnittstellen (USB-Typ-C, Grove) sowie ein im Raster von 2,54mm, 8 polige Buchsenleiste für Breadboardkabel verbaut. Grove ist ein benutzerfreundliches System, mit dem sich ein Prozessor (z.B. Arduino) mit einer Vielzahl von Modulen, Sensoren und Eingängen verbinden lässt. Auf der Rückseite wird die Pinbelegung der Buchsenleiste dargestellt. \footnote{\cite{M5STACK.}}
@@ -100,6 +168,8 @@ Der M5StickC ist in einem Plastikgehäuse (PC - Polycarbonate) untergebracht. De
 \label{AufbauM5StickC}
 \end{center}
 \end{figure}
+
+\newpage
 
 \subsubsection{Technische Daten des M5StickC}
 \begin{itemize}
@@ -144,6 +214,8 @@ s
 \end{center}
 \end{figure}
 
+\newpage
+
 \subsection{Raspberry Pi 3}
 Der Raspberry Pi ist ein opensource Minicomputer, welcher ursprünglich als kostengünstiges System für Lernzwecke im Bereich der Programmierung gedacht war. \footnote{\cite{RaspberryPi.20.08.2015}} \par
 Besonders in der Makerszene erfreut sich der Raspberry Pi (Abb. \ref{pi_mitgehaeuse} einer großen Beliebtheit. Es sind Projekte vom Desktopcomputer \footnote{\cite{RaspberryPi.20.08.2015}} bis hin zur Steuerung und Überwachung heimischer 3D-Drucker \footnote{\cite{Hauge.20.04.2022}} realisierbar.\\[3mm]
@@ -174,7 +246,7 @@ Der Raspberry Pi 3B+ wurde für das Projekt am Geeignetsten eingestuft. Er verf�
 
 
 \subsubsection{Anschlussmöglichkeiten Anhand Raspberry Pi 3B+}
-Der Raspberry Pi 3B+ verfügt im Allgemeinen über folgende Anschlussmöglichkeiten:\par 
+Der Raspberry Pi 3B+ verfügt im Allgemeinen über folgende Anschlussmöglichkeiten (siehe Abb. \ref{RaspiAnschluesse})\par 
 $\bullet$ HDMI   \par %\hspace{20pt} $\bullet$ 
 $\bullet$ 3,5mm AUX\par 
 $\bullet$ 4 $\times$ USB 2.0 \par 
@@ -188,12 +260,14 @@ Quelle: IOT at Home S.60\par
 
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=10cm]{RaspiAnschluesse}
+		\includegraphics[width=15cm]{RaspiAnschluesse}
 		\caption{Hardwarebezeichnung auf Pi mit Beschriftung}
 		\label{RaspiAnschluesse}
 	\end{figure}
 	
 Für das Projekt sind insbesondere die GPIO-Pins und der Ethernetport von Bedeutung.\par
+
+\newpage
 
 \subsection{Weitere Hardware}
 \subsubsection{Piezo Buzzer Modul}
@@ -280,10 +354,12 @@ Für die Spannungsversorgung soll ein originales Raspberry Pi Micro-USB-Netzteil
 
 Eine MicroSDHC-Speicherkarte mit einer Kapazität von 16GB und einer Lesegeschwindigkeit von bis zu 90 MB/s soll den nötigen Speicher für den Mosquitto MQTT broker und weitere Aufgaben bereitstellen. \href{https://www.reichelt.de/sg/de/microsdhc-speicherkarte-16gb-transcend-class-10-uhs-i-ts16gusdcu1-p220722.html}{(Reichelt bestelllink)} 
 
-\subsection{Anschlussplan Pi 3}
-Der Anschluss der Hardwarebauteile an den Pi 3 erfolgt über die auf dem Pi verbauten Pin's nach dem Anschlussplan (Abb. \ref{Anschlussplan}). Der Raspberry Pi benötigt einen Anschluss per Micro-USB zur Spannungsversorgung. Dies kann, je nach Anliegen, entweder über den Router erfolgen, sofern dieser über eine USB-Schnittstelle verfügt, oder über einen externen Spannungswandler (vgl. Handyladegerät). Der Warnsummer/Buzzer benötigt keine externe Spannungsquelle und wird direkt über den Pi mit Spannung versorgt.
+\newpage
 
-\begin{figure}[H]	%[h] um an dieser Stelle anzuzeigen
+\subsection{Anschlussplan Pi 3}
+Der Anschluss der Hardwarebauteile an den Pi 3 erfolgt über die auf dem Pi verbauten Pins nach dem Anschlussplan (Abb. \ref{Anschlussplan}). Der Raspberry Pi benötigt einen Anschluss per Micro-USB zur Spannungsversorgung. Dies kann, je nach Anliegen, entweder über den Router erfolgen, sofern dieser über eine USB-Schnittstelle verfügt, oder über einen externen Spannungswandler (vgl. Handyladegerät). Der Warnsummer/Buzzer benötigt keine externe Spannungsquelle und wird direkt über den Pi mit Spannung versorgt.
+
+\begin{figure}[H]	%[H] um an dieser Stelle anzuzeigen
 \begin{center}
 \includegraphics[width=15cm]{Anschlussplan.png}
 \caption{Anschlussschematik Raspberry Pi 3}
@@ -296,6 +372,8 @@ Der Anschluss der Hardwarebauteile an den Pi 3 erfolgt über die auf dem Pi verb
 \section{Verzeichnisse}
 \addcontentsline{toc}{subsection}{Abbildungsverzeichnis}
 \listoffigures %Abbildungsverzeichnis
+\addcontentsline{toc}{subsection}{Tabellenverzeichnis}
+\listoftables
 \addcontentsline{toc}{subsection}{Literatur}
 \bibliography{Literatur}	%Literaturverzeichnis
 
