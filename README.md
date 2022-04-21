@@ -1,6 +1,6 @@
-#### Überwachungssystem basierend auf der IMU des M5-Sticks
+# Überwachungssystem basierend auf der IMU des M5-Sticks
 
-# Erstellt am 21.04.2022
+##### Erstellt am 21.04.2022
 
 ## Table of Contents
 1. [Autoren](#autoren)
