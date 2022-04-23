@@ -53,6 +53,8 @@
 
 \newcommand{\linkJumpercable}{https://www.reichelt.de/sg/de/entwicklerboards-steckbrueckenkabel-40-pole-f-f-20-cm-debo-kabelset12-p282700.html}
 
+\newcommand{\linkNTPiVier}{https://www.reichelt.de/raspberry-pi-netzteil-5-1-v-3-0-a-usb-type-c-eu-stecker-s-rpi-ps-15w-bk-eu-p260010.html}
+
 %%%
 %Befehle:
 %\\ Zeilenumbruch, eher vermeiden
@@ -131,9 +133,9 @@ Alle Internetlinks und Preise wurden am 20.04.2022 zuletzt abgerufen. Der aktuel
 		Anz. & Bezeichnung               & Artikel-Nr.       	& Einzelpreis   & Bem.					& Bestellink 						  \\ 
 		\hline
 		\hline
-		1      & Raspberry Pi 3B+          & RASPBERRYPI 3 B+ 	& 46,20 € &                           		&\href{\linkPi}{reichelt.de}    	                             \\
+		1      & Raspberry Pi 3B+          & RASPBERRYPI 3 B+ 	& 46,20 € &   Alternativ wäre auch Raspberry Pi 4B in Ordnung.                       		&\href{\linkPi}{reichelt.de}    	                             \\
 		\hline
-		1      & Raspberry Pi - Netzteil   & RASP NT 25 SW E      & 7,25 €  &         	               		&\href{\linkPiNT}{reichelt.de}  	                             \\
+		1      & Raspberry Pi - Netzteil   & RASP NT 25 SW E      & 7,25 €  &   Falls auf Raspberry Pi 4B gewechselt anderes Netzteil verwenden. Bestenfalls originales Pi Netzteil mit USB Typ-C \href{\linkNTPiVier}{(Link: reichelt.de)}      	               		&\href{\linkPiNT}{reichelt.de}  	                             \\
 		\hline
 		1      & M5StickC                  &                   	& 29,95€        & Nur M5 Stick C+ verfügbar        &\href{\linkMstick}{eckstein-shop.de} 	                             \\
 		\hline
@@ -315,9 +317,9 @@ Es wäre ebenfalls möglich durch vertauschen des VCC und GND Anschlusses das Mo
 		\hline
 		SIG(S2)                   & GPIO 24 \hspace{0,3cm}(Pin 18)\\
 		\hline
-		VCC~(+)   & 5V \hspace{1,45cm}(Pin\hspace{0,35cm}4)\\ 
+		VCC~(+)   & 3,3 V \hspace{1cm}(Pin\hspace{0,35cm}1)\\ 
 		\hline
-		GND(-)                   & Ground \hspace{0,6cm}(Pin 14)\\
+		GND(-)                   & Ground \hspace{0,6cm}(Pin\hspace{0,35cm}6)\\
 		\hline
 		
 \end{tabular}
