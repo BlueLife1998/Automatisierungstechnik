@@ -1,10 +1,6 @@
 # alarmsystem.py
-# Written by Luca Schulte, Hochschule Emden-Leer.
 
-# You can control this subscriber program with an app named
-# MQTT Dashboard, which you can download for free from the Google Play Store at:
-# https://apps.apple.com/us/app/mil-mascaras/id1550345112?platform=iphone
-#
+
 # serverAddress, below is your pi's host name. But, since our Mosquitto broker and
 # this program (which acts as the subscriber) are on the same Raspberry Pi
 # we can simply use "localhost" as the server name.
@@ -22,7 +18,7 @@ import RPi.GPIO as GPIO
 
 
 
-clientName = "alarmActor"
+clientName = "alarmActor"  
 
 mqttClient = mqtt.Client(clientName)
 # Flag to indicate subscribe confirmation hasn't been printed yet.
@@ -109,7 +105,7 @@ def buzzeralarm():
         #GPIO.cleanup()
 
 
-#------------------------Funktionen der Kurzhubtaster---------------------
+#------------------------Functions Buttons---------------------
 
 def buttonS1_pressed(channel):   #Funktion Taster S1
     global alarmActive
@@ -126,11 +122,11 @@ def buttonS1_pressed(channel):   #Funktion Taster S1
 
 
 
-def buttonS2_pressed(channel):   #Funktion Taster S2
+def buttonS2_pressed(channel):   #Function Button S2
     global alarmReset
 
     if alarmReset == False:
-        alarmReset = True       #Ausgelösten Alarm resetten
+        alarmReset = True       #Reset the tripped alarm
         print("Button S2 was pushed, alarm was resettet!")
         #GPIO.cleanup()
 
@@ -146,8 +142,8 @@ GPIO.add_event_detect(buttonS2,GPIO.RISING,callback=buttonS2_pressed)
 mqttClient.on_connect = connectionStatus
 mqttClient.on_message = messageDecoder
 
-# Mit MQTT Server verbinden und unendliche Schleife starten
-# Mit Strg.+C wird das Programm beendet
+# Connect to MQTT Server and start an infinite loop
+# Use ctrl.+c to kill the program
 print("server address is:", serverAddress)
 mqttClient.username_pw_set(username, password)
 mqttClient.connect(serverAddress)
