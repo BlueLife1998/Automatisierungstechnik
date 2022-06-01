@@ -1,4 +1,7 @@
 # alarmsystem.py
+#Alarmsystem mittles IMU des M5stick
+#Gruppe 22
+
 
 
 # serverAddress, below is the pi's host name. But, since the Mosquitto broker and
@@ -6,7 +9,7 @@
 # it is recommended to simply use "localhost" as the server name.
 
 serverAddress = "localhost"
-username      = "user01"
+username      = "user01"            #usernames and passwords are stored in the passwd file of mosquitto
 password      = "MXv65bWrGGH4BKY2"
 
 
@@ -35,9 +38,9 @@ alarmReset  = True      #Varible that states if alarm is resetted, after being t
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)       #Broadcom numbers, don't change to BOARD
 
-buzzer   =  4       #GPIO 4 for Buzzer
-buttonS1 = 23       #GPIO 23 for Button S1
-buttonS2 = 24       #GPIO 24 for Button S2
+buzzer   =  4       #GPIO 4 for buzzer
+buttonS1 = 23       #GPIO 23 for button S1
+buttonS2 = 24       #GPIO 24 for button S2
 
 
 
@@ -80,55 +83,62 @@ def messageDecoder(client, userdata, msg):
     global alarmReset       #set alarmReset as global, so other functions can change and use it
 
 
-    if message == "alarmActivate":
+    if message == "alarmActivate":  #If message is "alarmActivate" the alarm gets activated
         alarmActive = True
         print("--- Alarm armed !!! ---")
-    elif message == "alarmDeactivate":
+    elif message == "alarmDeactivate":  #If message is "alarmActivate" the alarm gets deactivated
         alarmActive = False
         print("--- Alarm disarmed !!! ---")
 
-    elif message == "alarmTripped":
-        if alarmActive == True:
-            alarmReset = False
+        
+    elif message == "alarmTripped":     
+        if alarmActive == True:                 #Check if alarm is activated, before it goes on
+            alarmReset = False                  #Set alarm to non-resetted
             print("--- Alarm tripped !!! ---")
-            buzzeralarm()
+            buzzeralarm()                       #call function Buzzeralarm
 
-    elif topic == 'm5connected':
-        print(message)
+            
+    #If any message was sent in "m5connected" the message is shown in the terminal. 
+    #It shows which m5stick was connected. Example "m5stick Kitchen was connected"
+    elif topic == 'm5connected':  
+        print(message, "was connected")
 
 
 
 
 def buzzeralarm():
 
-    while alarmReset == False:
+    while alarmReset == False:         #Buzzer makes noise until S2 was pressed
+        #Turn buzzer on for 1 second
         GPIO.output(buzzer,GPIO.HIGH)
         time.sleep(1)
-        GPIO.output(buzzer,GPIO.LOW)
+        
+        #Turn buzzer off for a half second
+        GPIO.output(buzzer,GPIO.LOW)   
         time.sleep(0.5)
-        #GPIO.cleanup()
+        
 
 
 #------------------------Functions Buttons---------------------
 
-def buttonS1_pressed(channel):   #Function button S1
+def buttonS1_pressed(channel):   #Button S1 is able to activate and deactivate the alarm
     global alarmActive
 
     #Activate alarm via button
     if alarmActive == False:    
         print("Button S1 was pushed, alarm armed!")
         mqttClient.publish("alarmactivation", "alarmActivate")  #Publish message to tell all clients alarm is active
-        alarmActive = True   #Covering the case message was not send
+        alarmActive = True   #Covering the case message was not send, alarm will still be abled in the script
     #Deactivate alarm via button
     elif alarmActive == True:
         print("Button S1 was pushed, alarm disarmed!")
         mqttClient.publish("alarmactivation", "alarmDeactivate") #Publish message to tell all clients alarm is inactive
-        alarmActive = False  #Covering the case message was not send
+        alarmActive = False  #Covering the case message was not send, alarm will still be disabled in the script
         
 
 
 
-def buttonS2_pressed(channel):   #Function button S2
+def buttonS2_pressed(channel):   #Button S2 is able to reset the alarm after it was tipped
     global alarmReset
 
     if alarmReset == False:
@@ -141,8 +151,8 @@ def buttonS2_pressed(channel):   #Function button S2
 
 
 
-GPIO.add_event_detect(buttonS1,GPIO.RISING,callback=buttonS1_pressed)
-GPIO.add_event_detect(buttonS2,GPIO.RISING,callback=buttonS2_pressed)
+GPIO.add_event_detect(buttonS1,GPIO.RISING,callback=buttonS1_pressed)   #check if S1 was pressed
+GPIO.add_event_detect(buttonS2,GPIO.RISING,callback=buttonS2_pressed)   #check if S2 was pressed
 
 # Set up calling functions to mqttClient
 mqttClient.on_connect = connectionStatus
