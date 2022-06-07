@@ -1,5 +1,5 @@
 # alarmsystem.py
-#Alarmsystem mittles IMU des M5stick
+#Alarmsystem mittels IMU des M5stick
 #Gruppe 22
 
 
