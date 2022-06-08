@@ -1,0 +1,189 @@
+\documentclass[a4paper,12pt]{article}
+
+%benötigte Pakete
+\usepackage[ngerman]{babel}		%Deutscher Standard
+\usepackage[T1]{fontenc}			%Ausgabefont
+\usepackage[utf8]{inputenc}		%Umlaute
+\usepackage{amsmath}				%Formeln einbinden
+\usepackage{mathptmx}			%Schriftart Times
+\usepackage{graphicx}			%Paket für Grafiken
+\usepackage{hyperref}			%Verlinkungen
+\usepackage{float}
+\usepackage[bottom]{footmisc}	%Fußnote am Ende der Seite darstellen
+
+%Literaturangaben
+\bibliographystyle{unsrt}
+
+%Sonstiges
+\setlength\headheight{40pt}
+%\setlength\footskip{50pt}
+%\setlength{\topmargin}{1cm}
+\usepackage[left=3cm,right=3cm,top=2cm,bottom=2cm,includeheadfoot]{geometry}
+\title{Bedienungsanleitung M5Stick Überwachungssystem}
+%\date{\today} %aktuelles Datum einfügen
+\graphicspath{{Bilder/}} %Bilderpfad 
+
+%Kopf- und Fußzeile erstellen
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{\includegraphics[height=1.2cm]{Allgemeines_Logo.jpg}}
+%\lhead{\thesubsection}
+%\chead{Überwachungssystem M5 Stick} %Mitte Kopfzeile
+\rhead{\leftmark}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage}
+%\renewcommand{\headrulewidth}{10pt}	%Dicke der Linie
+
+%%%
+%Befehle:
+%\\ Zeilenumbruch, eher vermeiden
+%\par oder \\[0,5cm] neuer Absatz
+%\newpage Neue Seite
+%\pagebreak Neue Seite, vorheriger Text wird bündig abgeschlossen
+%\textbf{xxxxx} Fettschrift 
+%\underline{xxxxx} Unterstreichen
+%\section{Einführung} Neues Kapitel erstellen
+%\subsection{xxxxx} Neues Unterkapitel
+%\ref{xxxxx} Referenz erstellen
+%%%
+
+%Bilderpfad: C:/Users/lukas/Desktop/AutoTech/Bilder/
+
+\begin{document}
+
+%Titelseite erstellen
+\begin{titlepage}
+	\centering
+	\includegraphics[width=5cm]{M5stick-c-1.jpg}\par\vspace{1cm}
+	{\scshape\LARGE Hochschule Emden/Leer \par}
+	\vspace{1cm}
+	{\scshape\Large Projekt Automatisierungstechnik\par}
+	\vspace{1.5cm}
+	{\huge\bfseries Bedienungsanleitung: Überwachungssystem basierend
+	auf der IMU des
+	M5-Sticks\par}
+	\vspace{2cm}
+	{\Large\itshape Autoren:\par {Lukas Ohdens, 7013982\par
+	Michel Grüther, 7013909\par Luca Schulte, 7014030\par Alexander
+	Maul, 7014104\par Hauke Helms, 7013828}\par}
+	\vfill
+	Betreuender Professor\par
+	Prof. Dr. Wings
+
+	\vfill
+
+	{\large Emden, \today\par}
+\end{titlepage}
+
+%Inhaltsverzeichnis
+\tableofcontents
+\newpage
+
+\section{Sicherheitshinweise}
+Um die volle Funktionsweise der Alarmanlage gewährleisten zu können, lassen Sie die Installation und Inbetriebnahme von Fachpersonal durchführen.\par
+In der Anlage liegt elektrische Spannung an, weshalb sie außerhalb der Reichweite von Kindern montiert werden sollte. Achten Sie bei der Installation der Sensoren darauf, dass diese ebenfalls nicht in Reichweite von Kindern angebracht wird, um eine Verletzung dieser oder eine Fehlfunktion der Anlage zu vermeiden.
+
+	\section{Technische Daten}
+	\subsection{IoT Broker (Server)}
+	$\bullet$ Typ: Raspberry Pi 3B+\\ 
+	$\bullet$ Eingangsleistung: 5 V; 2,5A DC; (12,5W) \\
+	$\bullet$ Einsatztemperatur: 0$^\circ$C$\dots$50$^\circ$C \\ 
+	$\bullet$ Anschlussmöglichkeiten: \\
+	$\bullet$ Wireless LAN: 2,4 GHZ und 5 GHZ möglich\\ 
+	$\bullet$ Gigabit Ethernet Anschluss mit bis zu 300 Mb/s \\
+	$\bullet$ 4 x USB 2.0 
+	
+	\subsection{Türalarmsensor}
+	
+	$\bullet$ Typ: M5StickC\\ 
+	$\bullet$ Eingebauter Microcontroller ESP32
+	$\bullet$ Akkukapazität: 95 mAh\\ 
+	$\bullet$ Schnittstellen: Grove und USB-Typ C\\ 
+	$\bullet$ Ein- und Ausgangsspannung: 5V\\ 
+	$\bullet$ Einsatztemperatur: 0$^\circ$C$\dots$60$^\circ$C\\ 
+	$\bullet$ Abmaße: (LxBxH) - 48,2 mm x 25,5 mm x 13,7 mm
+	
+	
+	\subsection{Netzteil IoT Broker}
+		$\bullet$ Typ: Raspberry Pi Power Supply T6716DV\\ 
+	$\bullet$ Eingang: 90-264 V AC; 0,5 A; 47-63 Hz \\
+	$\bullet$ Ausgang: 5,2 V AC; 2,5 A; (13W)\\ 
+	$\bullet$ Steckertyp: Eurostecker auf Micro-USB 5 Pin \\ 
+	$\bullet$ Kabellänge: 1,5 m\\ 
+	$\bullet$ Einsatztemperatur:
+	0$^\circ$C$\dots$40$^\circ$C 
+	
+	
+	\subsection{Piezo Buzzer}
+	$\bullet$ Typ: Iduino ST1143\\ 
+	$\bullet$ Betriebsspannung: 3,3 V oder 5 V \\
+	$\bullet$ Typ: Raspberry Pi 3B+\\ 
+	$\bullet$ Eingangsleistung: 5 V; 2,5A DC; (12,5W) \\
+	$\bullet$ Weiteres: Kann mit DC und Rechteck Signal angesteuert werden.
+	
+	\subsection{Taster}  
+		$\bullet$ Typ: Joy-it SBC-Button2\\ 
+		$\bullet$ Betriebsspannung: 5 V DC\\
+		$\bullet$ Belastungsgrenze: 12 V / 0,5 A (6W)
+		$\bullet$ Logikmodi: High-Aktiv und Low-Aktiv möglich
+	
+	\subsection{Ethernetkabel}
+	$\bullet$ Typ:   SLIM PKW-LIGHT-K6 1.5\\ 
+	$\bullet$ Steckertyp: RJ45 auf RJ45\\ 
+	$\bullet$ Ausführung: CAT 6
+	
+\newpage
+
+\section{Installation}
+\subsection{Homebox}
+Die Alarmanlage fungiert als IoT-Anwendung und benötigt daher eine Internetanbindung. Es empfiehlt sich daher die Homebox nah am Router zu installieren oder an einem anderen Ort mit Ethernetkabelanbindung. Außerdem wird eine Steckdose für das Netzteil benötigt.\par
+Um Fehlfunktionen und Verletzungen zu vermeiden, empfehlen wir die Box außerhalb der Reichweite von Kindern zu platzieren.
+
+\subsection{Sensoren}
+Die Sensoren kommunizieren via WLAN mit der Homebox, weshalb hier keine Kabelanbindung nötig ist.\par
+Angebracht werden die Sensoren an allen Fenstern und Türen, die abgesichert werden sollen. Es empfiehlt sich die Sensoren an den Fensterscheiben zu montieren, um ein Auslösen zu gewährleisten, falls die Scheibe eingeschlagen wird.\par
+Aus allgemeinen Sicherheitsaspekten und weil die Sensoren auf Bewegung reagieren, sollten Sie darauf achten, dass die Fenster und Türen fest schließen. Dies beugt Einbrüchen generell vor und Fehlalarme werden vermieden.
+
+\subsection{Einrichtung}
+Da die Einrichtung des Systems zum kritischen Bereich gehört, wird dieser Schritt von speziell geschultem Personal übernommen. Sie dürfen sich ausruhen und sich auf eine bald betriebsbereite Alarmanlage freuen.
+
+\subsection{Testlauf}
+Ist die Installation und Einrichtung abgeschlossen wird jeder Sensor getestet, ob der Alarm bestimmungsgerecht auslöst.
+
+\newpage
+
+\section{Bedienung}
+\subsection{Einschalten}
+Sobald die Homebox mit Strom versorgt ist und durch einen Techniker eingerichtet ist, ist die Anlage betriebsbereit.
+
+\subsection{Deaktivierung des Alarms}
+Wenn der Alarm ausgelöst wurde ertönt ein akustisches Signal an der Homebox und der Sensor, an dem das Signal ausgelöst wurde beginnt zu leuchten. Um den Alarm zu deaktivieren drücken Sie auf den roten Taster. Daraufhin wird das Signal verstummen und die Anlage ist wieder im Betriebsmodus.
+
+\subsection{Manuelles “Scharfschalten” der Anlage}
+Mit einem kurzen Drücken auf den grünen Taster wird die Anlage scharf geschaltet. Nachdem Sie den Taster gedrückt haben, dauert es fünf Minuten bis die Anlage in Alarmbereitschaft ist - genug Zeit für Sie das Gebäude zu verlassen und so einen Fehlalarm zu vermeiden.
+
+\subsection{Manuelles Deaktivieren der Anlage}
+Sollten Sie während der eingestellten Betriebszeiten die Anlage deaktivieren wollen, so halten Sie den roten Taster für drei Sekunden gedrückt. Es ertönt ein kurzes akustisches Signal und die Anlage ist inaktiv. Um die Anlage zu reaktivieren drücken Sie den grünen Taster.
+
+
+\section{Wartung}
+\subsection{Laden der Sensoren}
+Sobald ein Sensor nicht mehr in regelmäßigen Abständen blinkt ist der Akku leer. In dem Fall muss der Sensor abgenommen und geladen werden. Nutzen Sie dafür das mitgelieferte Ladekabel.
+
+\subsection{Service}
+Sollte wider Erwarten einmal ein Problem vorliegen, versuchen Sie das System neuzustarten.\par
+Falls daraufhin noch immer ein Problem vorliegt, zögern Sie nicht einen Techniker zu rufen. Ihre Sicherheit liegt uns am Herzen und wir werden schnellstmöglich vor Ort sein, um Ihre Anlage wieder instand zu setzen.
+
+
+\newpage
+
+%\section{Verzeichnisse}
+%\addcontentsline{toc}{subsection}{Abbildungsverzeichnis}
+%\listoffigures %Abbildungsverzeichnis
+%\addcontentsline{toc}{subsection}{Tabellenverzeichnis}
+%\listoftables
+%\addcontentsline{toc}{subsection}{Literatur}
+%\bibliography{Literatur}	%Literaturverzeichnis
+
+\end{document}
