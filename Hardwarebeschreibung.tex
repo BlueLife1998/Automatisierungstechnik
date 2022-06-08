@@ -103,7 +103,7 @@ s
 
 \newpage
 
-\subsection{Raspberry Pi 3B+}
+\subsection{Raspberry Pi 4}
 Der Raspberry Pi ist ein opensource Minicomputer, welcher ursprünglich als kostengünstiges System für Lernzwecke im Bereich der Programmierung gedacht war. \footnote{\cite{RaspberryPi.20.08.2015}} \par
 Besonders in der Makerszene erfreut sich der Raspberry Pi (Abb. \ref{pi_mitgehaeuse}) einer großen Beliebtheit. Es sind Projekte vom Desktopcomputer \footnote{\cite{RaspberryPi.20.08.2015}} bis hin zur Steuerung und Überwachung heimischer 3D-Drucker \footnote{\cite{Hauge.20.04.2022}} realisierbar.\\[3mm]
 %Das Produktprotfolio reicht vom leistungsschwächeren Raspberry Pi (1Ghz singlecore, 512 MB RAM) zum leistungsstärkeren Raspberry Pi 
@@ -118,9 +118,9 @@ Besonders in der Makerszene erfreut sich der Raspberry Pi (Abb. \ref{pi_mitgehae
 
 \subsubsection{Raspberry Pi für das Projekt}
 Für das Projekt Überwachungssystem mittels der IMU des M5 Sticks soll ein 
-Raspberry Pi 3B+ als sogenannter IoT Broker und als Aktor für den Alarm genutzt werden.\par
+Raspberry Pi 4B in der Version mit 1GB RAM als Server fungieren auf welchem der Mosquitto MQTT Broker installiert sein soll. Des Weiteren soll der Server selbst als Aktor für den Alarm dienen.\par
 %Das Modell 3B+ verfügt über eine Rechenleistung von
-Der Raspberry Pi 3B+ wurde für das Projekt am besten geeignet eingestuft. Er verfügt über einen Gigabit-LAN Anschluss welcher mit Hilfe eines Ethernetkabels für eine stabile Verbindung mit dem Router des Heimnetzwerkes sorgen soll. Verglichen mit älteren Raspberry Pi Modellen ist der 3B+ mit einer etwas stärkeren CPU, sowie einer WLAN und Bluetooth Karte ausgestattet, welche die Möglichkeiten bieten das Projekt um mehr IoT Geräte, beispielsweise Sensoren und Aktoren, zu erweitern. Zudem ist der preisliche Unterschied (UVP) zu den Vorgängermodellen marginal.  
+Der Raspberry Pi 4B wurde für das Projekt am besten geeignet eingestuft. Er verfügt über einen Gigabit-LAN Anschluss welcher mit Hilfe eines Ethernetkabels für eine stabile Verbindung mit dem Router des Heimnetzwerkes sorgen soll. Verglichen mit älteren Raspberry Pi Modellen ist der Pi 4B mit einer etwas stärkeren CPU, sowie einer WLAN und Bluetooth Karte ausgestattet, welche die Möglichkeiten bieten das Projekt um mehr IoT Geräte, beispielsweise Sensoren und Aktoren, zu erweitern. Zudem ist der preisliche Unterschied (UVP) zu den Vorgängermodellen marginal.  
 
 	\begin{figure}[H]
 	\centering
@@ -229,7 +229,7 @@ Es wäre ebenfalls möglich durch vertauschen des VCC und GND Anschlusses das Mo
 	\end{figure}
 
 \subsubsection{Zubehör des Raspberry Pi}
-Für die Spannungsversorgung soll ein originales Raspberry Pi Micro-USB-Netzteil mit einer maximal abrufbaren Leistung von 13W genutzt werden.\par
+Für die Spannungsversorgung soll ein originales Raspberry Pi USB-C-Netzteil mit einer maximal abrufbaren Leistung von 13W genutzt werden.\par
 
 Eine MicroSDHC-Speicherkarte mit einer Kapazität von 16GB und einer Lesegeschwindigkeit von bis zu 90 MB/s soll den nötigen Speicher für den Mosquitto MQTT Broker und weitere Aufgaben bereitstellen. \href{\linkmicrosd}{(Reichelt Bestelllink)} 
 
