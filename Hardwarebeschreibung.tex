@@ -110,27 +110,28 @@ Besonders in der Makerszene erfreut sich der Raspberry Pi (Abb. \ref{pi_mitgehae
 
 	\begin{figure}[H]
 	\centering
-	\includegraphics[height=250pt]{pi_mitgehaeuse.png}
-	\caption{Raspberry Pi 3B+}
+	\includegraphics[height=250pt]{Pi_4.jpg}
+	\caption{Raspberry Pi 4B}
 	\label{pi_mitgehaeuse}
 \end{figure}	
 
 \subsubsection{Raspberry Pi für das Projekt}
 Für das Projekt Überwachungssystem mittels der IMU des M5 Sticks soll ein 
 Raspberry Pi 4B in der Version mit 1GB RAM als Server fungieren auf welchem der Mosquitto MQTT Broker operieren soll. Des Weiteren soll der Server selbst als Aktor für den Alarm dienen.\par
-%Das Modell 3B+ verfügt über eine Rechenleistung von
+
 Der Raspberry Pi 4B wurde für das Projekt als am besten geeignet eingestuft. Er verfügt über einen Gigabit-LAN Anschluss welcher mit Hilfe eines Ethernetkabels für eine stabile Verbindung mit dem Router des Heimnetzwerkes sorgen soll. Verglichen mit älteren Raspberry Pi Modellen ist der Pi 4B mit einer etwas stärkeren CPU, sowie einer WLAN und Bluetooth Karte ausgestattet, welche die Möglichkeiten bieten das Projekt um mehr IoT Geräte, beispielsweise Sensoren und Aktoren, zu erweitern. Zudem ist der preisliche Unterschied (UVP) zu den Vorgängermodellen marginal.  
 
-	\begin{figure}[H]
-	\centering
-	\includegraphics[height=200pt]{tabelle_pi_vergleich}
-	\caption{Vergleich der verschiedenen Raspberry Pi Modelle \protect\cite[S. 59]{Huwe.2019}}
-	\label{tabelle_pi_vergleich}
-\end{figure}
+	// \begin{figure}[H]
+	// \centering
+	//\includegraphics[height=200pt]{tabelle_pi_vergleich}
+	//\caption{Vergleich der verschiedenen Raspberry Pi Modelle \protect\cite[S. 59]{Huwe.2019}}
+	// \label{tabelle_pi_vergleich}
+// \end{figure}
 
 \subsubsection{Anschlussmöglichkeiten am Raspberry Pi 3B+}
-Der Raspberry Pi 3B+ verfügt im Allgemeinen über folgende Anschlussmöglichkeiten (siehe Abb. \ref{RaspiAnschluesse}):\footnote{\cite[S. 60]{Huwe.2019}}\par 
-$\bullet$ HDMI   \par %\hspace{20pt} $\bullet$ 
+Der Raspberry Pi 4B verfügt im Allgemeinen über folgende Anschlussmöglichkeiten (siehe Abb. \ref{RaspiAnschluesse}):\footnote{\cite[S. 60]{Huwe.2019}}\par  
+//NEUE QUELLE: HANDBUCH PI4!!!!!!!!!!!  //https://datasheets.raspberrypi.com/rpi4/raspberry-pi-4-product-brief.pdf
+$\bullet$ 2x micro-HDMI   \par %\hspace{20pt} $\bullet$ 
 $\bullet$ 3,5mm AUX\par 
 $\bullet$ 4 $\times$ USB 2.0 \par 
 $\bullet$ Ethernet 1Gbit/RJ45\par 
@@ -138,7 +139,7 @@ $\bullet$ CCI (Camera Connector Interface)\par
 $\bullet$ DSI (Display Serial Interface)\par
 $\bullet$ 40 GPIO-Pins\par
 $\bullet$ Steckplatz für die microSD-Karte\par
-$\bullet$ Micro-USB Anschluss für die Stromversorgung des PIs\par
+$\bullet$ USB-C Anschluss für die Stromversorgung des PIs\par
 
 	\begin{figure}[H]
 		\centering
