@@ -88,7 +88,7 @@ def messageDecoder(msg):
 
 def buzzeralarm():
     """
-    Luca schreibt hier noch nen Commi
+    Makes the Piezobuzzer do a beeping noise 
     """
     # Buzzer makes noise until S2 was pressed
     while alarmReset == False:
