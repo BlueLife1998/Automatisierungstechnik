@@ -36,7 +36,7 @@ GPIO.setup(buttonS2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(buzzer, GPIO.OUT)
 
 
-def connectionStatus():
+def connectionStatus(client, userdata, flags, rc):
     """
     Subscribe to topics and give out that script is successfully subscriped
     """
@@ -48,6 +48,11 @@ def connectionStatus():
         mqttClient.subscribe("alarmistripped")  # topic to send message to trip the alarm
         mqttClient.subscribe("m5connected")  # topic in which M5 sticks message when they were connected
         print("subscribed")
+        for count in range(2):
+            GPIO.output(buzzer, GPIO.HIGH)
+            time.sleep(0.3)
+            GPIO.output(buzzer, GPIO.LOW)
+            time.sleep(0.3)
 
     # Check the preset alarm status and message it to all clients
     if alarmActive == True:
@@ -56,7 +61,7 @@ def connectionStatus():
         mqttClient.publish("alarmactivation", "alarmDeactivate")
 
 
-def messageDecoder(msg):
+def messageDecoder(client, userdata, msg):
     """
     Decodes the passed message and does stuff.
 
@@ -101,7 +106,7 @@ def buzzeralarm():
         time.sleep(0.5)
 
 
-def buttonS1_pressed():
+def buttonS1_pressed(channel):
     """
     Button S1 is able to activate and deactivate the alarm.
     """
@@ -120,7 +125,7 @@ def buttonS1_pressed():
         alarmActive = False  # Covering the case message was not send, alarm will still be disabled in the script
 
 
-def buttonS2_pressed():
+def buttonS2_pressed(channel):
     """"
     Button S2 is able to reset the alarm after it was tipped
     """
