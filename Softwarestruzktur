@@ -1,0 +1,143 @@
+\subsubsection{Beschreibung Softwarestruktur Alarmsystem.py}
+
+\begin{figure}[H]	%[H] um an dieser Stelle anzuzeigen
+\begin{center}
+\includegraphics[width=10cm]{Programmcode/1bib.png}
+\caption{Benötigte Pakete}
+\label{1bib}
+\end{center}
+\end{figure}
+
+Zu Beginn des Programms werden die benötigten Bibliotheken und Pakete (Abb. \ref{1bib}) eingebunden.
+
+\subsubsection{Beschreibung der verwendeten Bibliotheken und Pakete}
+\textbf{Bibliothek time:}
+Time ist eine Python Bibliothek, die verschiedene zeitbezogene Funktionen zur Verfügung stellt.
+In diesem Projekt wurde der Befehl \grqq sleep()\glqq{} aus dieser Bibliothek genutzt. Dieser lässt das Programm für die angegebene Zeit warten, bis es die nächste Zeile ausführt.\footnote{\cite{.16.06.2022}}
+
+\textbf{paho.mqtt:}
+Eclipse Paho erlaubt es MQTT Funktionen wie subscribe oder publish in Python zu nutzen.
+Alle MQTT spezifischen Befehle, die im Skript genutzt werden, sind Teil dieses Paketes.\footnote{\cite{Craggs.16.06.2022}}
+
+\textbf{Paket RPi.GPIO:}
+Erlaubt es mittels Python die GPIO Pins des raspberry Pis anzusteuern.\footnote{\cite{PyPI.16.06.2022}}
+
+\subsubsection{Deklarieren der Variablen}
+
+\begin{figure}[H]	%[H] um an dieser Stelle anzuzeigen
+\begin{center}
+\includegraphics[width=10cm]{Programmcode/21VariablenGpios.png}
+\caption{Deklarieren der Variablen}
+\label{21VariablenGpios}
+\end{center}
+\end{figure}
+
+Zuerst werden Variablen bezüglich der Verbindung mit dem Server festgelegt. \qlqq serverAdress\qrqq{} wurde als localhost festgelegt, da das Skript auf dem gleichen Server wie der Broker läuft. \qlqq username \qrqq und \qlqq password \qrqq{} entsprechen den Nutzerdaten aus dem mosquitto password file auf dem Pi unter \path{/etc/mosquitto/pwfile}.\par
+Die Funktion alarmActive speichert die Information darüber ob sich das System im aktivierten oder deaktivierten Zustand befindet, und ist standardmäßig bei Programmstart auf FALSE gesetzt, also deaktiviert. (Siehe Abb. \ref{21VariablenGpios})
+
+\subsubsection{Konfiguration der GPIOs}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=10cm]{Programmcode/22VariablenGpios.png}
+\caption{Konfigurieren der GPIO Pins}
+\label{22VariablenGpios}
+\end{center}
+\end{figure}
+
+In diesem Programmabschnitt werden die GPIO Pins konfiguriert.\par
+In Zeile 27 wird der verwendete Modus auf BCM (Broadcom) gesetzt. Dies gibt an, dass die Deklarierung der Pins der GPIO-nummerierung z.B. GPIO 4 folgt. Eine andere Möglichkeit wäre es BOARD Numbers zu nutzen. Hierbei müsste die Nummer des Pins auf dem Board genutzt werden, bei GPIO 4 wäre dies Beispielsweise Pinnummer 7.\par
+In den Zeilen 29 bis 31 werden die Variablen mit den zu verwendeten BCM nummern deklariert. Diese entsprechen GPIO 4, GPIO 23 und GPIO 24.\par
+In den Zeilen 34 und 35 werden GPIO 23 und GPIO 24 als Input deklariert. Diese Pins sollen bei Druck der Taster ein Inputsignal aufnehmen.\par
+In Zeile 36 wird GPIO 4 als Output deklariert. GPIO 4 soll ein Signal an den Buzzer abgeben. (Siehe Abb. \ref{22VariablenGpios})
+
+\subsubsection{Beschreibung der Funktionen des Programms}
+\textbf{connectionStatus()}
+
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=10cm]{Programmcode/connectionstatus.png}
+\caption{Funktion connectionStatus()}
+\label{connectionstatus}
+\end{center}
+\end{figure}
+
+Die Funktion connectionStatus hat die Aufgabe den für die Steuerung des Systems verwendeten Topics zu subscriben, sowie zu Signalisieren, dass dies erfolgt ist und das Skript  erfolgreich gestartet wurde. Auf den erfolgreichen Start wird mit einem akustischen Signal hingedeutet, dies wird durch den Code in Zeile 51 bis 55 realisiert. Der Buzzer erzeugt in einem Abstand von 0,3 Sekunden zwei akustische Signale, welche jeweils 0,3 Sekunden anhalten. Schlussendlich wird überprüft ob die Variable alarmActive True oder False ist und je nach Fall eine Nachricht mit \qlqq Alarm aktivieren \qrqq bzw. \qlqq Alarm deaktivieren \qrqq  gesendet um alle verbundenen Geräte mit dem Alarmstatus des Servers zu synchronisieren. (Siehe Abb. \ref{connectionstatus})\par\medskip
+
+Hintergrund der Topics welchen in den Zeilen 47 bis 49 subscribed wird:
+\begin{description}
+\item[alarmactivation:]
+Hier werden Nachrichten gesendet welchen den Status des Überwachungssystem ändern, also aktivieren oder deaktivieren.
+\item[alarmistripped:] Hier werden Nachrichten gesendet welche sich auf das Auslösen des Alarms beziehen.
+\item[m5connected:] Wenn sich ein M5Stick mit dem Broker verbunden hat wird in diesem Topic eine Nachricht mit der ClientID des M5Sticks gesendet, welche im Terminal ausgelesen werden kann.
+\end{description}
+\medskip
+
+\textbf{messageDecoder()}\par 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=10cm]{Programmcode/messageDecoder.png}
+\caption{Funktion messageDecoder()}
+\label{messageDecoder}
+\end{center}
+\end{figure}
+ 
+Die Funktion messageDecoder (Abb. \ref{messageDecoder}) wird aufgerufen, wenn in einem der Topics eine Nachricht versandt wurde. Diese Nachricht wird dekodiert und abgeglichen.\par
+Lautet der Inhalt der Nachricht \qlqq alarmActivate \qrqq{} so wird die Variable \qlqq alarmActive \qrqq{} auf True gesetzt und der Alarm somit aktviert.
+Lautet der Inhalt  \qlqq alarmDeactivate \qrqq{} so wird die Variable \qlqq alarmActive \qrqq{} auf False gesetzt und der Alarm somit deaktviert.
+Falls eine Nachricht mit dem Inhalt \qlqq alarmTripped \qrqq versandt wurde, wird zunächst überprüft ob \qlqq alarmActive \qrqq{} True ist und der Alarm somit im aktiven Zustand ist.
+Ist dies der Fall wird der Resetzustand aufgehoben und die Funktion buzzeralarm aufgerufen.\par
+Letzter Fall: Falls die gesendete Nachricht im Topic \qlqq m5connected \qrqq{} gesendet wurde, wird der Inhalt der Nachricht im Terminal ausgegeben, um zu überprüfen, ob sich der M5Stick nach dem Start verbunden hat. \par\medskip
+
+\textbf{Buzzeralarm()} 
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=10cm]{Programmcode/buzzeralarm.png}
+\caption{Funktion Buzzeralarm()}
+\label{buzzeralarm}
+\end{center}
+\end{figure}
+
+Die Funktion \qlqq buzzeralarm \qrqq{} ist dafür verantwortlich, dass der Piezobuzzer ein akustisches Signal erzeugt. Es wird im Abstand von 0,5 Sekunden für eine Sekunde ein High-Signal an GPIO 4 angelegt, welches den Buzzerton erzeugt. Dies geschieht solange die Variable \qlqq alarmReset \qrqq{} False ist, also der Alarm nach Auslösen durch drücken von S2 nicht resettet wurde.\par\medskip
+
+\textbf{buttonS1_pressed()}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=10cm]{Programmcode/s1pressed.png}
+\caption{Funktion buttonS1_pressed()}
+\label{s1pressed}
+\end{center}
+\end{figure}
+
+Die Aufgabe dieser Funktion ist das Aktivieren und Deaktivieren des Alarms per Knopfdruck.
+Die Funktion wird aufgerufen, sobald der Taster S1 betätigt wurde. Ist der Alarm zum Zeitpunkt des Knopfdruckes inaktiv, wird dieser aktiviert, ist er aktiv, wird dieser deaktiviert.\par
+Es wird jeweils eine Nachricht im Topic \qlqq alarmActivate \qrqq{} gesendet, um den Alarmstatus der verbundenen IoT-Geräte mit dem des Servers zu synchronisieren. (Siehe Abb. \ref{s1pressed})
+
+\textbf{buttonS2_pressed()}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=10cm]{Programmcode/s2pressed.png}
+\caption{Funktion buttonS2_pressed()}
+\label{s2pressed}
+\end{center}
+\end{figure}
+
+Die Aufgabe dieser Funktion ist das Resetten des Alarms durch Knopfdruck, nachdem dieser ausgelöst wurde.
+Die Funktion wird aufgerufen, sobald der Taster S2 betätigt wurde. \par
+Falls die Variable \qlqq alarmreset \qrqq{} False ist wird diese auf true gesetzt und die Schleife in der Funktion buzzeralarm gestoppt. (Siehe Abb. \ref{s2pressed})
+
+\textbf{Restlicher Code}
+\begin{figure}[H]
+\begin{center}
+\includegraphics[width=10cm]{Programmcode/Restcode.png}
+\caption{Restlicher Code}
+\label{Restcode}
+\end{center}
+\end{figure}
+
+Der Befehl in Codezeile 141 wartet darauf, dass an GPIO 23 das Signal (bei Drücken von S1) ansteigt. Wenn dieses Event eintritt wird die Funktion \qlqq buttons1_pressed \qrqq{} aufgerufen.\par
+Der Befehl in 142 wartet darauf, dass an GPIO 24 das Signal (bei Drücken von S2) ansteigt. Wenn dieses Event eintritt wird die Funktion \qlqq buttons2_pressed \qrqq{} aufgerufen. \par
+Zeile 145: Sobald sich das Skript mit dem Broker verbunden hat, wird die Funktion \qlqq connectionStatus \qrqq{} aufgerufen.  \par
+Zeile 146: Sobald eine Nachricht eingegangen ist wird die Funktion \qlqq messageDecoder \qrqq{} aufgerufen
+Die Befehle in den Zeilen 151 und 152 sorgen dafür, dass sich das Skript mit den zuvor angegebenen Nutzerdaten im Broker eingegeben hat.\par
+Zeile 153 sorgt dafür, dass das Skript in einer Dauerschleife läuft, um durchgehend eingehende Nachrichten auszuwerten und die entsprechenden Funktionen auszuführen.
