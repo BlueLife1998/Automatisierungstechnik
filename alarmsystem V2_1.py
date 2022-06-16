@@ -20,7 +20,7 @@ mqttClient = mqtt.Client(clientName)
 
 didPrintSubscribeMessage = False  # Flag to indicate subscribe confirmation hasn't been printed yet.
 
-alarmActive = True  # Variable that states if alarm system is active or inactive, preset alarm status active
+alarmActive = False  # Variable that states if alarm system is active or inactive, preset alarm status active
 alarmReset = True  # Variable that states if alarm is reset, after being tripped
 
 GPIO.setwarnings(False)
@@ -55,10 +55,10 @@ def connectionStatus(client, userdata, flags, rc):
             time.sleep(0.3)
 
     # Check the preset alarm status and message it to all clients
-    if alarmActive == True:
-        mqttClient.publish("alarmactivation", "alarmActivate")
-    else:
+    if alarmActive == False:
         mqttClient.publish("alarmactivation", "alarmDeactivate")
+    else:
+        mqttClient.publish("alarmactivation", "alarmActivate")
 
 
 def messageDecoder(client, userdata, msg):
