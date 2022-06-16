@@ -113,12 +113,12 @@ def buttonS1_pressed(channel):
     global alarmActive
 
     # Activate alarm via button
-    if alarmActive:
+    if alarmActive == False:
         print("Button S1 was pushed, alarm armed!")
         mqttClient.publish("alarmactivation", "alarmActivate")  # Publish message to tell all clients alarm is active
         alarmActive = True  # Covering the case message was not send, alarm will still be abled in the script
     # Deactivate alarm via button
-    elif alarmActive:
+    elif alarmActive == True:
         print("Button S1 was pushed, alarm disarmed!")
         mqttClient.publish("alarmactivation",
                            "alarmDeactivate")  # Publish message to tell all clients alarm is inactive
@@ -131,7 +131,7 @@ def buttonS2_pressed(channel):
     """
     global alarmReset
 
-    if alarmReset:
+    if alarmReset == False:
         alarmReset = True  # Reset the tripped alarm
         print("Button S2 was pushed, alarm was resettet!")
 
